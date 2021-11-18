@@ -10,6 +10,9 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+void ft_strcpy(char *dest, char *src);
+void ft_strclear(char *str);
+char *ft_check_remain(char *remain,char **line);
 char *get_next_line(int fd);
 char *ft_strjoin(char *line, char *buf);
 int ft_strlen(char *str);

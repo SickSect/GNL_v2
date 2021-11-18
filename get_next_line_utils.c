@@ -1,5 +1,54 @@
 #include "get_next_line.h"
 
+char *ft_check_remain(char *remain, char **line)
+{
+  char *ptr_nl;
+
+  ptr_nl = NULL;
+  if(remain)
+  {
+    if((ptr_nl = ft_strchr(remain,'\n')))
+    {
+      *ptr_nl = '\0';
+      *line = ft_strdup(remain);
+      ft_strcpy(remain,++ptr_nl);
+    }
+    else
+    {
+      *line = ft_strdup(remain);
+      ft_strclear(remain);
+    }
+  }
+  else
+      *line = ft_strnew(1);
+  return (ptr_nl);
+}
+
+void ft_strclear(char *str)
+{
+  int i;
+
+  i = 0;
+  while(str[i] != '\0')
+  {
+    str[i] = '\0';
+    i++;
+  }
+  str[i] = '\0';
+}
+
+void ft_strcpy(char *dest, char *src)
+{
+  int i;
+
+  i = 0;
+  while(src[i] != '\0')
+  {
+    dest[i] = src[i];
+  }
+  dest[i] = '\0';
+}
+
 char	*ft_strnew(int size)
 {
     int i;
@@ -62,7 +111,7 @@ int ft_strlen(char *str)
     int i;
 
     i = 0;
-    while(str[i])
+    while(str[i] != '\0')
         i++;
     return(i);
 }
@@ -80,7 +129,6 @@ char *ft_strjoin(char *line, char *buf)
     new_line = malloc(sizeof(char) * (len + 1));
     if(!new_line)
         return(NULL);
-    //FREE???
     while(line[i] != '\0')
     {
         new_line[i] = line[i];
@@ -93,7 +141,6 @@ char *ft_strjoin(char *line, char *buf)
         i++;
         j++;
     }
-    free(line);
     new_line[i] = '\0';
     return(new_line);
 }
