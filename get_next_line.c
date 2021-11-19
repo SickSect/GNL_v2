@@ -9,8 +9,15 @@ char *get_next_line(int fd)
     char *ptr_nl;
     char *tmp;
 
-    if(fd < 0 || fd > 256 || BUFFER_SIZE <= 0)
+    if(fd < 0 || fd > 256 || BUFFER_SIZE <= 0 || !(last = read(fd,cur_buf,BUFFER_SIZE)))
       return (NULL);
+    cur_buf[last] = '\0';
+    remain = ft_strdup(cur_buf);
+    if((ft_strchr(remain,'\n') && ft_strlen(remain) <= 1))
+    {
+      //printf("REMAIN - %s\n",remain);
+      return(ft_strdup("\n"));
+    }
     ptr_nl = ft_check_remain(remain,&line);
     while(!ptr_nl && (last = read(fd,cur_buf,BUFFER_SIZE)))
     {
@@ -20,6 +27,8 @@ char *get_next_line(int fd)
             *ptr_nl = '\0';
             ptr_nl++;
             remain = ft_strdup(ptr_nl);
+            --ptr_nl;
+            *ptr_nl = '\n';
         }
         tmp = line;
         line = ft_strjoin(line,cur_buf);
