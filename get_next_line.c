@@ -4,15 +4,20 @@ char *ft_reader(int fd,char *line)
 {
   int last;
   char *reader;
+  int size;
+  if(BUFFER_SIZE < 10)
+    size = BUFFER_SIZE + 42;
+  else
+    size = BUFFER_SIZE;
 
-  reader = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+  reader = malloc(sizeof(char) * (size + 1));
   if(!reader)
     return(NULL);
   last = 1;
   while(last && !ft_newline(line))
   {
-    last = read(fd,reader,1);
-    if(last == -1)
+    last = read(fd,reader,size);
+    if(last < 0)
     {
       free(reader);
       return(NULL);

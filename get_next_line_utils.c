@@ -132,3 +132,19 @@ char	*ft_strjoin(char *s1, char *s2)
 	free (s1);
 	return (str);
 }
+
+char *ft_strnew(size_t size)
+{
+  size_t i;
+  char *ret;
+
+  ret = malloc(sizeof(char) * (size + 1));
+  i = 0;
+  while(i < size)
+  {
+    ret[i] = '\0';
+    i++;
+  }
+  ret[i] = '\0';
+  return(ret);
+}

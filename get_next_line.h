@@ -10,6 +10,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
+char *ft_strnew(size_t size);
 char *ft_strchr(const char *s, int c);
 char *ft_cut(char *str);
 char *ft_liner(char *str);
