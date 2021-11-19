@@ -1,39 +1,40 @@
 #include "get_next_line.h"
 
+char *ft_reader(int fd,char *line)
+{
+  int last;
+  char *reader;
+
+  reader = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+  if(!reader)
+    return(NULL);
+  last = 1;
+  while(last && !ft_newline(line))
+  {
+    last = read(fd,reader,1);
+    if(last == -1)
+    {
+      free(reader);
+      return(NULL);
+    }
+    reader[last] = '\0';
+    line = ft_strjoin(line,reader);
+  }
+  free(reader);
+  return(line);
+}
+
 char *get_next_line(int fd)
 {
-    static char* remain;
-    char cur_buf[BUFFER_SIZE + 1];
-    char *line;
-    int last;
-    char *ptr_nl;
-    char *tmp;
+  char *line;
+  static char *str;
 
-    if(fd < 0 || fd > 256 || BUFFER_SIZE <= 0 || !(last = read(fd,cur_buf,BUFFER_SIZE)))
-      return (NULL);
-    cur_buf[last] = '\0';
-    remain = ft_strdup(cur_buf);
-    if((ft_strchr(remain,'\n') && ft_strlen(remain) <= 1))
-    {
-      //printf("REMAIN - %s\n",remain);
-      return(ft_strdup("\n"));
-    }
-    ptr_nl = ft_check_remain(remain,&line);
-    while(!ptr_nl && (last = read(fd,cur_buf,BUFFER_SIZE)))
-    {
-        cur_buf[last] = '\0';
-        if((ptr_nl = ft_strchr(cur_buf,'\n')))
-        {
-            *ptr_nl = '\0';
-            ptr_nl++;
-            remain = ft_strdup(ptr_nl);
-            --ptr_nl;
-            *ptr_nl = '\n';
-        }
-        tmp = line;
-        line = ft_strjoin(line,cur_buf);
-        free(tmp);
-    }
-    //printf("%s -LINE\n%s SAVE\n",line,remain);
-    return (last || ft_strlen(remain) || ft_strlen(line)) ? line : NULL;
+  if(fd < 0 || BUFFER_SIZE <= 0)
+    return(NULL);
+  str = ft_reader(fd,str);
+  if(!str)
+    return(NULL);
+  line = ft_liner(str);
+  str = ft_cut(str);
+  return(line);
 }

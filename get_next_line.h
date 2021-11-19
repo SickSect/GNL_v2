@@ -10,14 +10,12 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-void ft_strcpy(char *dest, char *src);
-void ft_strclear(char *str);
-char *ft_check_remain(char *remain,char **line);
+char *ft_strchr(const char *s, int c);
+char *ft_cut(char *str);
+char *ft_liner(char *str);
 char *get_next_line(int fd);
-char *ft_strjoin(char *line, char *buf);
-int ft_strlen(char *str);
-char *ft_strdup(char *str);
-char	*ft_strnew(int size);
-char	*ft_strchr(char *str, int c);
+char *ft_strjoin(char *s1, char *s2);
+size_t ft_strlen(const char *str);
+int	ft_newline(const char *str);
 
 #endif
