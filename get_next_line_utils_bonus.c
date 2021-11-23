@@ -1,64 +1,16 @@
-#include "get_next_line.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ugina <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/11/23 19:23:43 by ugina             #+#    #+#             */
+/*   Updated: 2021/11/23 19:39:02 by ugina            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-
-char *ft_liner(char *str)
-{
-  char *line;
-  int i;
-
-  i = 0;
-  if(!str[i])
-    return(NULL);
-  while(str[i] != '\n' && str[i])
-    i++;
-  line = malloc(sizeof(char) * (i + 2));
-  if(!line)
-    return(NULL);
-  i = 0;
-  while(str[i] && str[i] != '\n')
-  {
-    line[i] = str[i];
-    i++;
-  }
-  if(str[i] == '\n')
-  {
-    line[i] = str[i];
-    i++;
-  }
-  line[i] = '\0';
-  return(line);
-}
-
-char *ft_cut(char *str)
-{
-  int i;
-  int j;
-  char *new_str;
-
-  i = 0;
-  j = 0;
-  while(str[i] && str[i] != '\n')
-    i++;
-  if(!str[i])
-  {
-    free(str);
-    return(NULL);
-  }
-  new_str = malloc(sizeof(char) * (ft_strlen(str) - i + 1));
-  if(!new_str)
-    return(NULL);
-  i++;
-  while(str[i])
-  {
-    new_str[j] = str[i];
-    i++;
-    j++;
-  }
-  new_str[j] = '\0';
-  free(str);
-  return(new_str);
-}
-
+#include "get_next_line_bonus.h"
 
 int	ft_newline(const char *str)
 {
@@ -76,7 +28,7 @@ int	ft_newline(const char *str)
 	return (0);
 }
 
-char *ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
@@ -86,22 +38,22 @@ char *ft_strchr(const char *s, int c)
 	while (s[i])
 	{
 		if (s[i] == (char)c)
-			return ((char*)(s + i));
+			return ((char *)(s + i));
 		i++;
 	}
 	if (s[i] == (char)c)
-		return ((char*)(s + i));
+		return ((char *)(s + i));
 	return (NULL);
 }
 
-size_t ft_strlen(const char *str)
+size_t	ft_strlen(const char *str)
 {
-    size_t i;
+	size_t	i;
 
-    i = 0;
-    while(str[i] != '\0')
-        i++;
-    return(i);
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	return (i);
 }
 
 char	*ft_strjoin(char *s1, char *s2)
@@ -133,18 +85,18 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char *ft_strnew(size_t size)
+char	*ft_strnew(size_t size)
 {
-  size_t i;
-  char *ret;
+	size_t	i;
+	char	*ret;
 
-  ret = malloc(sizeof(char) * (size + 1));
-  i = 0;
-  while(i < size)
-  {
-    ret[i] = '\0';
-    i++;
-  }
-  ret[i] = '\0';
-  return(ret);
+	ret = malloc(sizeof(char) * (size + 1));
+	i = 0;
+	while (i < size)
+	{
+		ret[i] = '\0';
+		i++;
+	}
+	ret[i] = '\0';
+	return (ret);
 }
